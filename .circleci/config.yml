@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Reachability Test
           command: |
-            docker-compose up -d
+            docker run -d $DOCKERHUB_USERNAME/weathertest:$TAG
             if curl -s --head  --request GET "localhost" | grep "200 OK" > /dev/null; then
                echo "$site is UP"
             else
