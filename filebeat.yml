@@ -1,0 +1,8 @@
+filebeat.inputs:
+- type: log
+  paths:
+    - /home/ubuntu/logs/*.log
+
+output.logstash:
+  hosts: ["172.31.50.96:5044"]
+  ttl: 120
