@@ -38,14 +38,6 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/weathertest:$TAG
 
-jobs:
-  build:
-    working_directory: ~/app
-    docker:
-      - image: cimg/base:2024.05
-        auth:
-          username: $DOCKERHUB_USERNAME
-          password: $DOCKERHUB_PASSWORD
     discord/steps:
       - checkout
 
