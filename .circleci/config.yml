@@ -35,3 +35,22 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/weathertest:$TAG
 
+orbs:
+  discord: antonioned/discord@0.1.0
+
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: cimg/base:2024.05
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+
+      - discord/status:
+          fail_only: false
+          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+          webhook: https://discord.com/api/webhooks/1244983967401119865/P4IPNGFg3_4RQTTaWsw2V_jgHQCebrGeja3RbpC8ZFL3grxHF9pIt6q9A5QkgvRAfH2G
