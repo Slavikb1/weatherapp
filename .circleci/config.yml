@@ -25,7 +25,6 @@ jobs:
       docker:
         - image: koalaman/shellcheck-alpine:stable
       steps:
-        - checkout
         - run:
             name: Check Scripts
             command: |
