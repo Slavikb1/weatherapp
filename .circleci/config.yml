@@ -25,6 +25,7 @@ jobs:
       - run:
           name: Reachability Test
           command: |
+            TAG=0.1.$CIRCLE_BUILD_NUM
             docker run -d $DOCKERHUB_USERNAME/weathertest:$TAG
             if curl -s --head  --request GET "localhost" | grep "200 OK" > /dev/null; then
                echo "$site is UP"
