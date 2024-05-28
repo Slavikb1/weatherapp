@@ -21,18 +21,6 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t $DOCKERHUB_USERNAME/weathertest:$TAG .
-    shellcheck:
-      docker:
-        - image: koalaman/shellcheck-alpine:stable
-      steps:
-        - run:
-            name: Check Scripts
-            command: |
-              if curl -s --head  --request GET "localhost" | grep "200 OK" > /dev/null; then
-              echo "$site is UP"
-              else
-              exit 0
-              fi
       - run:
           name: Push application Docker image
           command: |
