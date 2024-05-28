@@ -4,6 +4,9 @@ version: 2.1
 orbs:
   python: circleci/python@2
 
+orbs:
+  discord: antonioned/discord@0.1.0
+
 jobs:
   build:
     working_directory: ~/app
@@ -35,9 +38,6 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/weathertest:$TAG
 
-orbs:
-  discord: antonioned/discord@0.1.0
-
 jobs:
   build:
     working_directory: ~/app
@@ -46,7 +46,7 @@ jobs:
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
-    steps:
+    discord/steps:
       - checkout
 
       - discord/status:
