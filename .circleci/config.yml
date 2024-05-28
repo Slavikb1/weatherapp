@@ -36,8 +36,7 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/weathertest:$TAG
             echo "$TOKEN" | docker login https://gitlab.com/devops1771522/weather/container_registry -u sbidarski --password-stdin
-            docker build -t registry.gitlab.com/devops1771522/weather .
-            docker push registry.gitlab.com/devops1771522/weather
+            docker push registry.gitlab.com/devops1771522/weather/$DOCKERHUB_USERNAME/weathertest:$TAG
 
       - discord/status:
           fail_only: false
