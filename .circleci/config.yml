@@ -2,6 +2,26 @@
 # Stacks detected: deps:python:.
 version: 2.1
 orbs:
+  datadog-static-analysis: datadog/datadog-static-analyzer-circleci-orb@1
+jobs:
+  run-static-analysis-job:
+    docker:
+      - image: cimg/node:current
+    steps:
+      - checkout
+      - datadog-static-analysis/analyze:
+          service: "my-service"
+          env: "ci"
+          site: datadoghq.com
+          cpu_count: 2
+          enable_performance_statistics: false
+workflows:
+  main:
+    jobs:
+      - run-static-analysis-job
+
+
+orbs:
   python: circleci/python@2
 
 jobs:
