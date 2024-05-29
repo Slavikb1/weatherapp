@@ -47,24 +47,28 @@ jobs:
           success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
           webhook: "${DISCORD_STATUS_WEBHOOK}"
 
-      - checkov/scan:
-          directory: "~/app"                            # tell checkov where is the directory you want to scan
-          soft-fail: true                                     # do not fail the workflow in case vulnerabilities have found
-          output: "cli"                                       # Report output format one of cli, json, junitxml
-          api-key: "6bridgecrew-9example-2api-key1-demo9"     # use bridgecrew api key to create violations in bridgecrew app
 
-    checkov_tests:
-      executor: bridgecrew/default
-      steps:
-        - checkout
-        - bridgecrew/scan:
-            api-key-variable: BC_API_KEY
-            directory: ./terraform_files
-            output: json
-            soft-fail: true
-            
+      -  checkov_tests:
+          executor: bridgecrew/default
+          steps:
+            - checkout
+            - bridgecrew/scan:
+                api-key-variable: BC_API_KEY
+                directory: ./terraform_files
+                output: json
+                soft-fail: true
+
 workflows:
   my-workflow:
     jobs:
       - build
       - checkov_tests
+
+
+
+#
+#      - checkov/scan:
+#          directory: "~/app"                            # tell checkov where is the directory you want to scan
+#          soft-fail: true                                     # do not fail the workflow in case vulnerabilities have found
+#          output: "cli"                                       # Report output format one of cli, json, junitxml
+#          api-key: "6bridgecrew-9example-2api-key1-demo9"     # use bridgecrew api key to create violations in bridgecrew app
