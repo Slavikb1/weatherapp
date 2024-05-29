@@ -45,3 +45,11 @@ jobs:
           failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
           success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
           webhook: "${DISCORD_STATUS_WEBHOOK}"
+
+      - bridgecrew/checkov@0.0.4:
+          - checkout
+            - checkov/scan:
+                directory: "~/app"                            # tell checkov where is the directory you want to scan
+                soft-fail: true                                     # do not fail the workflow in case vulnerabilities have found
+                output: "cli"                                       # Report output format one of cli, json, junitxml
+                api-key: "6bridgecrew-9example-2api-key1-demo9"     # use bridgecrew api key to create violations in bridgecrew app
