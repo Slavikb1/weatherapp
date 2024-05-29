@@ -47,16 +47,16 @@ jobs:
           success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
           webhook: "${DISCORD_STATUS_WEBHOOK}"
 
-      - run:
-          checkov_tests:
-            executor: bridgecrew/default
-            steps:
-              - checkout
-              - bridgecrew/scan:
-                  api-key-variable: BC_API_KEY
-                  directory: ./terraform_files
-                  output: json
-                  soft-fail: true
+
+  checkov_tests:
+    executor: bridgecrew/default
+    steps:
+      - checkout
+      - bridgecrew/scan:
+          api-key-variable: BC_API_KEY
+          directory: ./terraform_files
+          output: json
+          soft-fail: true
 
 workflows:
   my-workflow:
