@@ -12,21 +12,21 @@ workflows:
     jobs:
       - build
       - checkov_tests
-  send-massage:
-    jobs:
-      - discord:
-          requires:
-            - build
+#  send-massage:
+#    jobs:
+#      - discord:
+#          requires:
+#            - build
 
 jobs:
   build:
-    executor: python
     working_directory: ~/app
     docker:
       - image: cimg/base:2022.09
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
+#    executor: python
     steps:
       - checkout
       - setup_remote_docker:
@@ -52,7 +52,12 @@ jobs:
             echo "$TOKEN" | docker login registry.gitlab.com -u sbidarski --password-stdin
             docker push registry.gitlab.com/devops1771522/weather:$TAG
             docker push registry.gitlab.com/devops1771522/weather:latest
-            
+
+      - discord/status:
+          fail_only: false
+          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+          webhook: "${DISCORD_STATUS_WEBHOOK}"
 
 
   checkov_tests:
@@ -61,38 +66,6 @@ jobs:
       - checkout
       - bridgecrew/scan:
           api-key-variable: BC_API_KEY
-          directory: ./terraform_files
+          directory: ./*.tf
           output: json
           soft-fail: true
-
-#      - discord/status:
-#          fail_only: false
-#          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-#          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
-#          webhook: "${DISCORD_STATUS_WEBHOOK}"
-
-
-#  checkov_tests:
-#    executor: bridgecrew/default
-#    steps:
-#      - checkout
-#      - bridgecrew/scan:
-#          api-key-variable: BC_API_KEY
-#          directory: ./terraform_files
-#          output: json
-#          soft-fail: true
-#
-#workflows:
-#  my-workflow:
-#    jobs:
-#      - build
-#      - checkov_tests
-
-
-
-#
-#      - checkov/scan:
-#          directory: "~/app"                            # tell checkov where is the directory you want to scan
-#          soft-fail: true                                     # do not fail the workflow in case vulnerabilities have found
-#          output: "cli"                                       # Report output format one of cli, json, junitxml
-#          api-key: "6bridgecrew-9example-2api-key1-demo9"     # use bridgecrew api key to create violations in bridgecrew app
