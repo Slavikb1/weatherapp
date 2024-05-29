@@ -4,6 +4,7 @@ version: 2.1
 orbs:
   python: circleci/python@2
   discord: antonioned/discord@0.1.0
+  checkov: bridgecrew/checkov@x.y.z
 
 jobs:
   build:
@@ -37,9 +38,17 @@ jobs:
             TAG=0.1.$CIRCLE_BUILD_NUM
             echo "$TOKEN" | docker login registry.gitlab.com -u sbidarski --password-stdin
             docker push registry.gitlab.com/devops1771522/weather:$TAG
-#            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
-#            docker push $DOCKERHUB_USERNAME/weathertest:$TAG
 
+jobs:
+    build:
+      executor: checkov/default
+      steps:
+        - checkout
+        - checkov/scan:
+            directory: '~/app'
+            soft-fail: true
+            output: "junitxml"
+            api-key: "6bridgecrew-9example-2api-key1-demo9"
 
 #      - discord/status:
 #          fail_only: false
