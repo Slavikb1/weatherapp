@@ -22,7 +22,7 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t $DOCKERHUB_USERNAME/weathertest:$TAG .
-            docker build -t https://gitlab.com/devops1771522/weather/weathertest:$TAG .
+#            docker build -t gitlab.com/devops1771522/weather/weathertest:$TAG .
       - run:
           name: Reachability Test
           command: |
@@ -36,10 +36,10 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/weathertest:$TAG
             echo "$TOKEN" | docker login https://gitlab.com/devops1771522/weather/container_registry -u sbidarski --password-stdin
-            docker push https://gitlab.com/devops1771522/weather/weathertest:$TAG
+            docker push gitlab.com/devops1771522/weather/$DOCKERHUB_USERNAME/weathertest:$TAG
 
-      - discord/status:
-          fail_only: false
-          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
-          webhook: "${DISCORD_STATUS_WEBHOOK}"
+#      - discord/status:
+#          fail_only: false
+#          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+#          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+#          webhook: "${DISCORD_STATUS_WEBHOOK}"
