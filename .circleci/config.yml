@@ -40,11 +40,11 @@ jobs:
             docker push registry.gitlab.com/devops1771522/weather:$TAG
             docker push registry.gitlab.com/devops1771522/weather:latest
 
-      - discord/status:
-          fail_only: false
-          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
-          webhook: "${DISCORD_STATUS_WEBHOOK}"
+#      - discord/status:
+#          fail_only: false
+#          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+#          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+#          webhook: "${DISCORD_STATUS_WEBHOOK}"
 
       - checkov/scan:
           - checkout
