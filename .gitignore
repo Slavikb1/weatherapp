@@ -1,0 +1,25 @@
+# Exclude
+*
+
+# Exceptions
+!*.md
+!.gitignore
+!*.c
+!*.h
+!*.sh
+!*.py
+!makefile
+!*.drawio
+!*.html
+!requirements.txt
+!*.yml
+!*.yaml
+!*.json
+!*.conf
+!*.service
+!*.tf
+!Dockerfile
+!.dockerignore
+!*.txt
+!dovekey.pub
+!.env
