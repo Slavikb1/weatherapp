@@ -39,16 +39,14 @@ jobs:
             echo "$TOKEN" | docker login registry.gitlab.com -u sbidarski --password-stdin
             docker push registry.gitlab.com/devops1771522/weather:$TAG
 
-jobs:
-    build:
-      executor: checkov/default
-      steps:
-        - checkout
-        - checkov/scan:
-            directory: '~/app'
-            soft-fail: true
-            output: "junitxml"
-            api-key: "6bridgecrew-9example-2api-key1-demo9"
+      - checkov/default:
+          steps:
+            - checkout
+            - checkov/scan:
+                directory: '~/app'
+                soft-fail: true
+                output: "junitxml"
+                api-key: "6bridgecrew-9example-2api-key1-demo9"
 
 #      - discord/status:
 #          fail_only: false
