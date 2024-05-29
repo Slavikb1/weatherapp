@@ -35,7 +35,7 @@ jobs:
           name: Push application Docker image
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
-            echo "$TOKEN" | docker login https://gitlab.com/devops1771522/weather -u sbidarski --password-stdin
+            echo "$TOKEN" | docker login registry.gitlab.com -u sbidarski --password-stdin
             docker push registry.gitlab.com/devops1771522/weathertest:$TAG
 #            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
 #            docker push $DOCKERHUB_USERNAME/weathertest:$TAG
