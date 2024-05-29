@@ -66,6 +66,7 @@ jobs:
       - checkout
       - bridgecrew/scan:
           api-key-variable: BC_API_KEY
-          directory: ./*.tf
+          directory: './'
+          file: "*.tf"
           output: json
           soft-fail: true
