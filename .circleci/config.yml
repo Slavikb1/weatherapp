@@ -38,15 +38,18 @@ jobs:
             TAG=0.1.$CIRCLE_BUILD_NUM
             echo "$TOKEN" | docker login registry.gitlab.com -u sbidarski --password-stdin
             docker push registry.gitlab.com/devops1771522/weather:$TAG
+            docker push registry.gitlab.com/devops1771522/weather:$latest
 
-      - checkov/scan:
-          directory: '~/app'
-          soft-fail: true
-          output: "junitxml"
-          api-key: "6bridgecrew-9example-2api-key1-demo9"
+#      - checkov/scan:
+#          directory: '~/app'
+#          soft-fail: true
+          
 
-#      - discord/status:
-#          fail_only: false
-#          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-#          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
-#          webhook: "${DISCORD_STATUS_WEBHOOK}"
+jobs:
+  build:
+      steps:
+        - discord/status:
+            fail_only: false
+            failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+            success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+            webhook: "${DISCORD_STATUS_WEBHOOK}"
