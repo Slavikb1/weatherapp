@@ -14,6 +14,7 @@ jobs:
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
+    executor: python
     steps:
       - checkout
       - setup_remote_docker:
@@ -47,9 +48,7 @@ jobs:
 #          webhook: "${DISCORD_STATUS_WEBHOOK}"
 
       - checkov/scan:
-          - checkout
-            - checkov/scan:
-                directory: "~/app"                            # tell checkov where is the directory you want to scan
-                soft-fail: true                                     # do not fail the workflow in case vulnerabilities have found
-                output: "cli"                                       # Report output format one of cli, json, junitxml
-                api-key: "6bridgecrew-9example-2api-key1-demo9"     # use bridgecrew api key to create violations in bridgecrew app
+          directory: "~/app"                            # tell checkov where is the directory you want to scan
+          soft-fail: true                                     # do not fail the workflow in case vulnerabilities have found
+          output: "cli"                                       # Report output format one of cli, json, junitxml
+          api-key: "6bridgecrew-9example-2api-key1-demo9"     # use bridgecrew api key to create violations in bridgecrew app
