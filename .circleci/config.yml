@@ -25,7 +25,7 @@ jobs:
             docker build -t $DOCKERHUB_USERNAME/weathertest:$TAG .
             docker tag $DOCKERHUB_USERNAME/weathertest:$TAG registry.gitlab.com/devops1771522/weathertest:$TAG
             docker build -t registry.gitlab.com/devops1771522/weather:$TAG .
-#            docker build -t gitlab.com/devops1771522/weather/weathertest:$TAG .
+
       - run:
           name: Reachability Test
           command: |
@@ -40,7 +40,6 @@ jobs:
             docker push registry.gitlab.com/devops1771522/weather:$TAG
             docker push registry.gitlab.com/devops1771522/weather:$latest
 
-    steps:
       - discord/status:
           fail_only: false
           failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
