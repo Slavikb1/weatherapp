@@ -250,7 +250,7 @@ resource "aws_key_pair" "dove-key" {
     subnet_ids      = [aws_subnet.Mysubnet01.id, aws_subnet.Mysubnet02.id]
     capacity_type   = "ON_DEMAND"
     disk_size       = 8
-    instance_types  = ["t3.medium"]
+    instance_types  = ["t3.micro"]
 
     remote_access {
       ec2_ssh_key               = "dovekey"
