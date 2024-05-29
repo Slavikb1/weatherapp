@@ -22,7 +22,7 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t $DOCKERHUB_USERNAME/weathertest:$TAG .
-            docker tag $DOCKERHUB_USERNAME/weathertest:$TAG registry.gitlab.com/devops1771522/weather/weathertest:$TAG
+            docker tag $DOCKERHUB_USERNAME/weathertest:$TAG registry.gitlab.com/devops1771522/weathertest:$TAG
             docker images
 #            docker build -t gitlab.com/devops1771522/weather/weathertest:$TAG .
       - run:
@@ -38,7 +38,7 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/weathertest:$TAG
             echo "$TOKEN" | docker login https://gitlab.com/devops1771522/weather/container_registry -u sbidarski --password-stdin
-            docker push registry.gitlab.com/devops1771522/weather/weathertest:$TAG
+            docker push registry.gitlab.com/devops1771522/weathertest:$TAG
 
 #      - discord/status:
 #          fail_only: false
