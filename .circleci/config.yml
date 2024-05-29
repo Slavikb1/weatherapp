@@ -53,6 +53,12 @@ jobs:
             docker push registry.gitlab.com/devops1771522/weather:$TAG
             docker push registry.gitlab.com/devops1771522/weather:latest
 
+      - discord/status:
+          fail_only: false
+          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+          webhook: "${DISCORD_STATUS_WEBHOOK}"
+
   checkov_tests:
     executor: bridgecrew/default
     steps:
@@ -62,12 +68,8 @@ jobs:
           directory: ./terraform_files
           output: json
           soft-fail: true
-    
-    discord/status:
-     fail_only: false
-     failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-     success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
-     webhook: "${DISCORD_STATUS_WEBHOOK}"
+
+
 
 
 #  checkov_tests:
