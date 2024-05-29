@@ -20,7 +20,7 @@ workflows:
 
 jobs:
   build:
-    executor: circleci/python@2
+    executor: python
     working_directory: ~/app
     docker:
       - image: cimg/base:2022.09
@@ -52,12 +52,8 @@ jobs:
             echo "$TOKEN" | docker login registry.gitlab.com -u sbidarski --password-stdin
             docker push registry.gitlab.com/devops1771522/weather:$TAG
             docker push registry.gitlab.com/devops1771522/weather:latest
+            
 
-      - discord/status:
-          fail_only: false
-          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
-          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
-          webhook: "${DISCORD_STATUS_WEBHOOK}"
 
   checkov_tests:
     executor: bridgecrew/default
@@ -69,7 +65,11 @@ jobs:
           output: json
           soft-fail: true
 
-
+#      - discord/status:
+#          fail_only: false
+#          failure_message: "**${CIRCLE_USERNAME}**'s build: **${CIRCLE_JOB}** failed."
+#          success_message: "**${CIRCLE_USERNAME}** deployed api to prod."
+#          webhook: "${DISCORD_STATUS_WEBHOOK}"
 
 
 #  checkov_tests:
