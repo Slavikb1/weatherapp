@@ -79,5 +79,5 @@ jobs:
           os: linux
           terraform_version: 0.14.2
       - run: pwd && ls -als    
-      - run: cd test && go get -v -d -t
-      - run: cd test && go test -v -timeout 30m 
+      #- run: go get -v -d -t
+      - run: go test -v -timeout 30m 
