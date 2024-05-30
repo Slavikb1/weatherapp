@@ -71,7 +71,7 @@ jobs:
     docker:
       # specify the version
       - image: circleci/golang:1.14
-    working_directory: /go/src/terratest_poc
+    working_directory: .
     steps:
       - checkout
       - terraform/install:
