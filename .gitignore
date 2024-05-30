@@ -1,0 +1,31 @@
+# Exclude
+*
+
+# Exceptions
+!*/
+!*.md
+!.myfuncs
+!.gitignore
+!*.c
+!*.h
+!*.sh
+!*.py
+!makefile
+!*.drawio
+!*.html
+!weather.jpg
+!requirements.txt
+!*.yml
+!*.yaml
+!*.json
+!*.conf
+!*.service
+!*.tf
+!Dockerfile
+!.dockerignore
+!*.txt
+
+# ignore .venv
+.venv
+venv
+
