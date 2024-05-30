@@ -11,7 +11,10 @@ workflows:
     jobs:
       - build
       - checkov_tests
-      - terratest
+  terratest:
+    jobs:
+      requires:
+        - build
 
 
 jobs:
