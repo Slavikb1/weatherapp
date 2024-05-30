@@ -1,5 +1,3 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:python:.
 version: 2.1
 orbs:
   python: circleci/python@2
@@ -12,11 +10,7 @@ workflows:
     jobs:
       - build
       - checkov_tests
-#  send-massage:
-#    jobs:
-#      - discord:
-#          requires:
-#            - build
+
 
 jobs:
   build:
@@ -26,7 +20,7 @@ jobs:
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
-#    executor: python
+
     steps:
       - checkout
       - setup_remote_docker:
@@ -67,6 +61,16 @@ jobs:
       - bridgecrew/scan:
           api-key-variable: BC_API_KEY
           directory : ./terraform
-#          file: "*.tf"
           output: json
           soft-fail: true
+
+
+  test:
+    # only build the circleci branch for now
+    branches:
+      only:
+        - circleci
+    docker:
+      # specify the version
+      - image: circleci/golang:1.10
+    working_directory: /go/src/github.com/robmorgan/terraform-rolling-deploys
