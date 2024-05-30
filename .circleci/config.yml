@@ -71,7 +71,7 @@ jobs:
     docker:
       # specify the version
       - image: circleci/golang:1.14
-    working_directory: .
+    working_directory: /
     steps:
       - checkout
       - terraform/install:
@@ -80,4 +80,4 @@ jobs:
           terraform_version: 0.14.2
       - run: pwd && ls -als    
       #- run: go get -v -d -t
-      - run: go test -v -timeout 30m 
+      - run: go go/src/terratest_poc/test.go -v -timeout 30m 
